@@ -1,0 +1,1 @@
+docker run --name=compile_pku -v /home/gaohaihan/CS143lab/PKUCompile:/compilelab -t -i maxxing/compiler-dev /bin/bash
