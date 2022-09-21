@@ -8,7 +8,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
-
+#include "ast.h"
 // 声明 lexer 函数和错误处理函数
 int yylex();
 void yyerror(std::unique_ptr<std::string> &ast, const char *s);
@@ -20,7 +20,7 @@ using namespace std;
 // 定义 parser 函数和错误处理函数的附加参数
 // 我们需要返回一个字符串作为 AST, 所以我们把附加参数定义成字符串的智能指针
 // 解析完成后, 我们要手动修改这个参数, 把它设置成解析得到的字符串
-%parse-param { std::unique_ptr<std::string> &ast }
+%parse-param { std::unique_ptr<BaseAST> &ptr }
 
 // yylval 的定义, 我们把它定义成了一个联合体 (union)
 // 因为 token 的值有的是字符串指针, 有的是整数
@@ -30,6 +30,7 @@ using namespace std;
 %union {
   std::string *str_val;
   int int_val;
+  BaseAST *ast_val;
 }
 
 // lexer 返回的所有 token 种类的声明
@@ -39,7 +40,7 @@ using namespace std;
 %token <int_val> INT_CONST
 
 // 非终结符的类型定义
-%type <str_val> FuncDef FuncType Block Stmt Number
+%type <ast_val> FuncDef FuncType Block Stmt Number
 
 %%
 
@@ -50,7 +51,8 @@ using namespace std;
 // $1 指代规则里第一个符号的返回值, 也就是 FuncDef 的返回值
 CompUnit
   : FuncDef {
-    ast = unique_ptr<string>($1);
+    unique_ptr<BaseAST> ptr = new CompUnit;
+    
   }
   ;
 
