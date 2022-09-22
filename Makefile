@@ -77,6 +77,8 @@ $(BUILD_DIR)/%.c.o: $(BUILD_DIR)/%.c; $(c_recipe)
 
 # C++ source
 define cxx_recipe
+	echo "This is INC"
+	echo $(INC_DIR)
 	mkdir -p $(dir $@)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 endef

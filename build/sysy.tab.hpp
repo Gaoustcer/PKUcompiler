@@ -48,8 +48,9 @@ extern int yydebug;
 
   #include <memory>
   #include <string>
+  #include "ast.h"
 
-#line 53 "/compilelab/build/sysy.tab.hpp"
+#line 54 "/compilelab/build/sysy.tab.hpp"
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -67,12 +68,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 30 "/compilelab/src/sysy.y"
+#line 33 "/compilelab/src/sysy.y"
 
   std::string *str_val;
   int int_val;
+  BaseAST* ptr_val;
 
-#line 76 "/compilelab/build/sysy.tab.hpp"
+#line 78 "/compilelab/build/sysy.tab.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -83,6 +85,6 @@ typedef union YYSTYPE YYSTYPE;
 
 extern YYSTYPE yylval;
 
-int yyparse (std::unique_ptr<std::string> &ast);
+int yyparse (unique_ptr<BaseAST> &ast);
 
 #endif /* !YY_YY_COMPILELAB_BUILD_SYSY_TAB_HPP_INCLUDED  */

@@ -1,22 +1,28 @@
-#include <memory>
 #include <iostream>
+#include <memory>
 using namespace std;
 class Base{
 public:
+    int x;
+    Base():x(-1){}
     virtual void func(){
-        cout << "Base\n";
+        cout << "function base\n";
     }
 };
+
 class Derive:public Base{
 public:
+    int z;
+    Derive(){
+        Base();
+        z = -2;
+    }
     void func(){
-        cout << "Derive\n";
+        cout << "function Derive\n";
     }
 };
+
 int main(){
-//   unique_ptr<int> prt(new int(2));
     unique_ptr<Base> ptr(new Derive);
     ptr->func();
-    unique_ptr<Base> p2(std::move(ptr));
-    p2->func();
 }

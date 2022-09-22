@@ -32,8 +32,8 @@ Hexadecimal   0[xX][0-9a-fA-F]+
 {WhiteSpace}    { /* 忽略, 不做任何操作 */ }
 {LineComment}   { /* 忽略, 不做任何操作 */ }
 
-"int"           { return INT; }
-"return"        { return RETURN; }
+"int"           { yylval.str_val = new string("int"); return INT; }
+"return"        { yylval.str_val = new string("return"); return RETURN; }
 
 {Identifier}    { yylval.str_val = new string(yytext); return IDENT; }
 

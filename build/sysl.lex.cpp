@@ -767,12 +767,12 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 35 "/compilelab/src/sysl.l"
-{ return INT; }
+{ yylval.str_val = new string("int"); return INT; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 36 "/compilelab/src/sysl.l"
-{ return RETURN; }
+{ yylval.str_val = new string("return"); return RETURN; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
